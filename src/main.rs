@@ -19,7 +19,7 @@ fn main() {
     let parsed_second_number = second_number.trim().parse::<i32>(); 
 
     
-    let number_1 = match parsed_first_number {
+    let mut number_1 = match parsed_first_number {
         Ok(num)=>num,
         Err(_) => {
             println!("That input can't be parsed, enter a number");
@@ -27,13 +27,25 @@ fn main() {
         }
     };
 
-    let number_2 = match parsed_second_number{
+    let mut number_2 = match parsed_second_number{
         Ok(num) => num,
         Err(_) => {
             println!("That input can't be processed");
             0    
         }
     };
+   
+
+    println!("Your greatest common divider: {}",  gcd_finder(number_1, number_2));    
+}
+
+fn gcd_finder(mut number_1: i32, mut number_2: i32) -> i32 {
+    let mut remainder = number_1 % number_2;
     
-    println!("User input: {}, {}", number_1, number_2);    
+    while remainder != 0 {
+        number_1 = number_2;
+        number_2 = remainder;
+        remainder = number_1 % number_2;
+    }
+    return number_2
 }
